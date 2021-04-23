@@ -106,10 +106,11 @@ describe Sefazp do
               "valor_do_ipi" => nil,
               "valor_do_pis" => "29.17",
               "valor_do_cofins" => "134.36",
-              "cst"=>nil,
-              "base_de_calculo_do_icms"=>nil,
-              "valor_do_icms"=>nil,
-              "aliquota_do_icms"=>nil
+              "cst"=>"00",
+              "base_de_calculo_do_icms"=>"1767.94",
+              "valor_do_icms"=>"318.23",
+              "aliquota_do_icms"=>"18.0000",
+              "item_valor_total_tributos" => nil,
             }
           ]
         })

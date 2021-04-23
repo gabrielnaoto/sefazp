@@ -219,33 +219,67 @@ class Nfe
         item_quantidade = prod.elements['qCom'].get_text.to_s rescue nil
         item_valor_unitario = prod.elements['vUnCom'].get_text.to_s rescue nil
         item_valor_total = prod.elements['vProd'].get_text.to_s rescue nil
-        item_cst = imposto.elements['ICMS/ICMS51/CST'].get_text.to_s rescue nil
-        item_base_de_calculo_do_icms = imposto.elements['ICMS/ICMS51/vBC'].get_text.to_s rescue nil
-        item_valor_do_icms = imposto.elements['ICMS/ICMS51/vICMS'].get_text.to_s rescue nil
-        item_aliquota_do_icms = imposto.elements['ICMS/ICMS51/pICMS'].get_text.to_s rescue nil
         item_valor_frete = prod.elements['vFrete'].get_text.to_s rescue nil
+        item_valor_total_tributos = imposto.elements['vTotTrib'].get_text.to_s rescue nil
         item_valor_ipi = imposto.elements['IPI/IPITrib/vIPI'].get_text.to_s rescue nil
         item_valor_pis = imposto.elements['PIS/PISAliq/vPIS'].get_text.to_s rescue nil
         item_valor_cofins = imposto.elements['COFINS/COFINSAliq/vCOFINS'].get_text.to_s rescue nil
 
-        items << {
-          "codigo" => item_codigo,
-          "descricao" => item_descricao,
-          "ncm_sh" => item_ncm_sh,
-          "cfop" => item_cfop,
-          "unidade" => item_unidade,
-          "quantidade" => item_quantidade,
-          "valor_unitario" => item_valor_unitario,
-          "valor_total" => item_valor_total,
-          "valor_do_frete" => item_valor_frete,
-          "valor_do_ipi" => item_valor_ipi,
-          "valor_do_pis" => item_valor_pis,
-          "valor_do_cofins" => item_valor_cofins,
-          "cst" => item_cst,
-          "base_de_calculo_do_icms" => item_base_de_calculo_do_icms,
-          "valor_do_icms" => item_valor_do_icms,
-          "aliquota_do_icms" => item_aliquota_do_icms,
-        }
+        imposto_icms = imposto.elements['ICMS'].children
+        if imposto_icms.any?
+          imposto_icms.each do |icms|
+            item_origem                   = icms.elements['orig'].get_text.to_s rescue nil
+            item_cst                      = icms.elements['CST'].get_text.to_s rescue nil
+            item_base_de_calculo_do_icms  = icms.elements['vBC'].get_text.to_s rescue nil
+            item_valor_do_icms            = icms.elements['vICMS'].get_text.to_s rescue nil
+            item_aliquota_do_icms         = icms.elements['pICMS'].get_text.to_s rescue nil
+
+            items << {
+                      "codigo" => item_codigo,
+                      "descricao" => item_descricao,
+                      "ncm_sh" => item_ncm_sh,
+                      "cfop" => item_cfop,
+                      "unidade" => item_unidade,
+                      "quantidade" => item_quantidade,
+                      "valor_unitario" => item_valor_unitario,
+                      "valor_total" => item_valor_total,
+                      "valor_do_frete" => item_valor_frete,
+                      "valor_do_ipi" => item_valor_ipi,
+                      "valor_do_pis" => item_valor_pis,
+                      "valor_do_cofins" => item_valor_cofins,
+                      "cst" => item_cst,
+                      "base_de_calculo_do_icms" => item_base_de_calculo_do_icms,
+                      "valor_do_icms" => item_valor_do_icms,
+                      "aliquota_do_icms" => item_aliquota_do_icms,
+                      "item_valor_total_tributos" => item_valor_total_tributos,
+                    }
+          end
+        else
+          item_cst = imposto.elements['ICMS/ICMS51/CST'].get_text.to_s rescue nil
+          item_base_de_calculo_do_icms = imposto.elements['ICMS/ICMS51/vBC'].get_text.to_s rescue nil
+          item_valor_do_icms = imposto.elements['ICMS/ICMS51/vICMS'].get_text.to_s rescue nil
+          item_aliquota_do_icms = imposto.elements['ICMS/ICMS51/pICMS'].get_text.to_s rescue nil
+
+          items << {
+            "codigo" => item_codigo,
+            "descricao" => item_descricao,
+            "ncm_sh" => item_ncm_sh,
+            "cfop" => item_cfop,
+            "unidade" => item_unidade,
+            "quantidade" => item_quantidade,
+            "valor_unitario" => item_valor_unitario,
+            "valor_total" => item_valor_total,
+            "valor_do_frete" => item_valor_frete,
+            "valor_do_ipi" => item_valor_ipi,
+            "valor_do_pis" => item_valor_pis,
+            "valor_do_cofins" => item_valor_cofins,
+            "cst" => item_cst,
+            "base_de_calculo_do_icms" => item_base_de_calculo_do_icms,
+            "valor_do_icms" => item_valor_do_icms,
+            "aliquota_do_icms" => item_aliquota_do_icms,
+            "item_valor_total_tributos" => item_valor_total_tributos,
+          }
+        end
       end
 
       return {
