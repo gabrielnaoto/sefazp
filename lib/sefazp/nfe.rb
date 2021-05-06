@@ -225,7 +225,7 @@ class Nfe
         item_valor_pis = imposto.elements['PIS/PISAliq/vPIS'].get_text.to_s rescue nil
         item_valor_cofins = imposto.elements['COFINS/COFINSAliq/vCOFINS'].get_text.to_s rescue nil
 
-        imposto_icms = imposto.elements['ICMS'].children
+        imposto_icms = imposto.elements['ICMS']&.children || []
         if imposto_icms.any?
           imposto_icms.each do |icms|
             item_origem                   = icms.elements['orig'].get_text.to_s rescue nil

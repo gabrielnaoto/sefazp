@@ -8,6 +8,7 @@ describe Sefazp do
   let(:cte_com_outros_documentos_v1_04) { File.open("spec/fixtures/cte/cte-com-outros-documentos-v1_04.xml", "r") }
   let(:nfe_v2_00) { File.open("spec/fixtures/nfe/nfe-v2_00.xml", "r") }
   let(:nfe_v3_10) { File.open("spec/fixtures/nfe/nfe-v3_10.xml", "r") }
+  let(:nfe_v4_00) { File.open("spec/fixtures/nfe/nfe-v4_00.xml", "r") }
 
   describe "v2.00" do
     describe "parse_mdfe" do
@@ -110,6 +111,83 @@ describe Sefazp do
               "base_de_calculo_do_icms"=>"1767.94",
               "valor_do_icms"=>"318.23",
               "aliquota_do_icms"=>"18.0000",
+              "item_valor_total_tributos" => nil,
+            }
+          ]
+        })
+      end
+    end
+  end
+
+  describe "v4.00" do
+    describe "parse_nfe" do
+      it "should parse a nfe" do
+        expect(Sefazp.parse_nfe(nfe_v4_00)).to eq({
+          :municipio_do_emitente=>"9999999",
+          :municipio_do_destinatario=>"9999999",
+          :chave_de_acesso=>"35150344656456453664364370003057641002527982",
+          :numero=>"305764",
+          :serie=>"1",
+          :natureza_da_operacao=>"VENDA MERCADORIA PARA INDUSTRIALIZACAO REVENDA  SIPI",
+          :protocolo_de_autorizacao=>"135999936184026 2015-03-04T11:43:34-03:00",
+          :cnpj_do_emitente=>"99999999999999",
+          :inscricao_estadual_do_emitente=>"999999999999",
+          :nome_do_emitente=>"XXXXXXXXXX XXX",
+          :logradouro_do_emitente=>"XXX XXXXXXXXX XXXXXXXXXX",
+          :numero_do_emitente=>"999",
+          :bairro_do_emitente=>"XXXXXX XXXXXX",
+          :cep_do_emitente=>"99999999",
+          :telefone_do_emitente=>"9999999999",
+          :documento_do_destinatario=>"99999999999999",
+          :inscricao_estadual_do_destinatario=>"999999999999",
+          :nome_do_destinatario=>"XXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXX",
+          :logradouro_do_destinatario=>"XXXXX XXXXXXXX",
+          :numero_do_destinatario=>"999",
+          :bairro_do_destinatario=>"XXXXXXXX",
+          :cep_do_destinatario=>"99999999",
+          :telefone_do_destinatario=>"9999999999",
+          :data_de_emissao=>"2015-03-04T11:35:00-03:00",
+          :data_de_entrada_saida=>"2015-03-04T11:35:00-03:00",
+          :base_de_calculo_do_icms=>"1767.94",
+          :valor_do_icms=>"318.23",
+          :valor_dos_produtos=>"1467.94",
+          :valor_do_frete=>"300.00",
+          :valor_do_seguro=>"0",
+          :valor_do_desconto=>"0",
+          :valor_de_outras_despesas=>"0",
+          :valor_do_ipi=>"0",
+          :valor_total_da_nota=>"1767.94",
+          :cnpj_da_transportadora=>"99999999999999",
+          :inscricao_estadual_da_transportadora=>"999999999999",
+          :nome_da_transportadora=>"XXXXXXXXXXXXX XXXXXXXXXXX XXXX",
+          :logradouro_da_transportadora=>"XXXXXXXX XXXXXXX XX",
+          :municipio_da_transportadora=>"XXXXXXX",
+          :uf_da_transportadora=>"SP",
+          :frete_por_conta=>"0",
+          :placa_do_veiculo=>nil,
+          :uf_do_veiculo=>nil,
+          :quantidade=>"2",
+          :especie=>"CHAPAS",
+          :peso_liquido=>"42.840",
+          :informacoes_complementares=>"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXX XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
+          :items=>[
+            {
+              "codigo"=>"XXXXXXXXXX",
+              "descricao"=>"POLICARBONATO CHAPA ALVEOLAR CRISTAL 10,0X2100X6000 LEXAN THERMOCLEAR",
+              "ncm_sh"=>"39206100",
+              "cfop"=>"5102",
+              "unidade"=>"PC",
+              "quantidade"=>"2.0000",
+              "valor_unitario"=>"733.97000000",
+              "valor_total"=>"1467.94",
+              "valor_do_frete" => "300.00",
+              "valor_do_ipi" => nil,
+              "valor_do_pis" => "29.17",
+              "valor_do_cofins" => "134.36",
+              "cst"=> nil,
+              "base_de_calculo_do_icms"=> nil,
+              "valor_do_icms"=>nil,
+              "aliquota_do_icms"=> nil,
               "item_valor_total_tributos" => nil,
             }
           ]
